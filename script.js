@@ -1,27 +1,21 @@
 let gameContainer = document.querySelector('.game-container');
 let loseScreen = document.querySelector('.lose-screen');
 let startScreen = document.querySelector('.start-screen');
-let gameSound = document.getElementById("game-sound");
-let currentLevel = 1;
-let maxLevel = 25;
 
 function startGame() {
     startScreen.style.display = 'none';
     gameContainer.style.display = 'block';
-    gameSound.play();
-    spawnNewImage(currentLevel);
+    spawnNewImage();
 }
 
-function spawnNewImage(count) {
-    for (let i = 0; i < count; i++) {
-        let img = document.createElement('img');
-        img.src = "https://a.top4top.io/p_3370bx0gi2.png"; // صورتك
-        img.classList.add('moving-img');
-        img.onclick = function () { explodeImage(img); };
+function spawnNewImage() {
+    let img = document.createElement('img');
+    img.src = "https://a.top4top.io/p_3370bx0gi2.png"; // صورتك
+    img.classList.add('moving-img');
+    img.onclick = function () { explodeImage(img); };
 
-        gameContainer.appendChild(img);
-        animateImage(img);
-    }
+    gameContainer.appendChild(img);
+    animateImage(img);
 }
 
 function animateImage(img) {
@@ -52,17 +46,8 @@ function explodeImage(img) {
 
     setTimeout(() => {
         img.remove();
-        nextRound();
+        spawnNewImage();
     }, 5000);
-}
-
-function nextRound() {
-    if (currentLevel < maxLevel) {
-        currentLevel++;
-        spawnNewImage(currentLevel);
-    } else {
-        victory();
-    }
 }
 
 function gameOver() {
@@ -73,11 +58,5 @@ function gameOver() {
 function restartGame() {
     loseScreen.style.display = 'none';
     gameContainer.style.display = 'block';
-    currentLevel = 1;
-    spawnNewImage(currentLevel);
-}
-
-function victory() {
-    alert("🎉 برافوو مروانن! لقد فزت بكل الجولات! 🎉");
-    restartGame();
+    spawnNewImage();
 }

@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    user-select: none; /* منع تحديد النصوص */
+    user-select: none; /* منع التحديد داخل الموقع */
 }
 
 body {
@@ -71,8 +71,8 @@ body {
 /* الصورة المتحركة */
 .moving-img {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
