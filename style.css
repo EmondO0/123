@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
-    user-select: none;
+    user-select: none; /* منع تحديد النصوص */
 }
 
 body {
@@ -51,12 +51,11 @@ body {
     width: 100%;
     height: 100vh;
     display: none;
-    overflow: hidden;
 }
 
 /* سلة المهملات */
 .trash-can {
-    font-size: 120px;
+    font-size: 100px;
     position: absolute;
     bottom: 50px;
     left: 50%;
@@ -65,7 +64,7 @@ body {
 
 @media (max-width: 600px) {
     .trash-can {
-        font-size: 80px;
+        font-size: 70px; /* حجم أصغر للهاتف */
     }
 }
 
@@ -75,8 +74,10 @@ body {
     width: 120px;
     height: 120px;
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
+/* تأثير الانفجار */
 .explosion {
     animation: explode 5s ease-in-out;
 }
