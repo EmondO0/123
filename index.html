@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة النفايات الحماسية</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- شاشة البداية -->
+    <div class="start-screen">
+        <h1>🎮 لعبة النفايات الحماسية 🗑️</h1>
+        <button class="start-btn" onclick="startGame()">ابدأ اللعب 🚀</button>
+    </div>
+
+    <!-- شاشة اللعبة -->
+    <div class="game-container">
+        <div class="trash-can">🗑️</div>
+    </div>
+
+    <!-- شاشة الخسارة -->
+    <div class="lose-screen">
+        <h2>💀 لقد خسرت! حاول مجددًا.</h2>
+        <button class="restart-btn" onclick="restartGame()">🔄 إعادة المحاولة</button>
+    </div>
+
+    <audio id="spawn-sound">
+        <source src="https://l.top4top.io/m_3370v88is1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
