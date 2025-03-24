@@ -1,43 +1,46 @@
 let gameContainer = document.querySelector('.game-container');
 let loseScreen = document.querySelector('.lose-screen');
 let startScreen = document.querySelector('.start-screen');
-let spawnSound = document.getElementById("spawn-sound");
+let backgroundMusic = document.getElementById("background-music");
+let level = 1;
+let maxLevel = 25;
 
 function startGame() {
     startScreen.style.display = 'none';
     gameContainer.style.display = 'block';
-    spawnNewImage();
+    spawnNewImages(level);
 }
 
-function spawnNewImage() {
+function spawnNewImages(count) {
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            createImage();
+        }, i * 1000);
+    }
+}
+
+function createImage() {
     let img = document.createElement('img');
-    img.src = "https://a.top4top.io/p_3370bx0gi2.png"; // صورتك
+    img.src = "https://a.top4top.io/p_3370bx0gi2.png";
     img.classList.add('moving-img');
+    img.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+    img.style.top = '0px';
     img.onclick = function () { explodeImage(img); };
 
     gameContainer.appendChild(img);
-    animateImage(img);
-
-    // تشغيل الصوت عند ظهور الصورة
-    spawnSound.currentTime = 0;
-    spawnSound.play();
+    moveImage(img);
 }
 
-function animateImage(img) {
-    let startX = Math.random() * (window.innerWidth - 100);
-    let startY = 0;
-    img.style.left = startX + 'px';
-    img.style.top = startY + 'px';
-
+function moveImage(img) {
     let interval = setInterval(() => {
-        startY += 5;
-        img.style.top = startY + 'px';
+        let currentTop = parseInt(img.style.top) || 0;
+        img.style.top = currentTop + 5 + 'px';
 
         let trashCan = document.querySelector('.trash-can');
         let trashRect = trashCan.getBoundingClientRect();
         let imgRect = img.getBoundingClientRect();
 
-        if (imgRect.bottom >= trashRect.top && imgRect.left > trashRect.left - 30 && imgRect.right < trashRect.right + 30) {
+        if (imgRect.bottom >= trashRect.top) {
             clearInterval(interval);
             gameOver();
         }
@@ -46,12 +49,12 @@ function animateImage(img) {
 }
 
 function explodeImage(img) {
-    img.src = "https://abs.twimg.com/emoji/v2/72x72/1f4a5.png"; // إيموجي انفجار
+    img.src = "https://abs.twimg.com/emoji/v2/72x72/1f4a5.png";
     img.classList.add('explosion');
 
     setTimeout(() => {
         img.remove();
-        spawnNewImage();
+        nextRound();
     }, 5000);
 }
 
@@ -61,7 +64,18 @@ function gameOver() {
 }
 
 function restartGame() {
+    level = 1;
     loseScreen.style.display = 'none';
     gameContainer.style.display = 'block';
-    spawnNewImage();
+    spawnNewImages(level);
+}
+
+function nextRound() {
+    level++;
+    if (level > maxLevel) {
+        alert("🎉 برافوو مروانن! لقد أكملت اللعبة!");
+        restartGame();
+    } else {
+        spawnNewImages(level);
+    }
 }
